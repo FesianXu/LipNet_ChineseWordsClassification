@@ -128,13 +128,25 @@ LipNet_ChineseWordsClassification/
 ├── ReadMe.md 
 ├── run_scripts # running script to make thing simple
 ├── trained_models # trained model weights, saving the pre-trained models which are for the whole_train
+├── results # the csv prediction results
 └── workdir # saving the weights and log files
+
 
 ```
 
 
 
+-----
 
+# The ensemble strategy script
+
+you can boost the performance by ensembling multiple difference models to make a more robust decision. It calls ensemble learning. Here I exploit simplest voting strategy, to find more detail, referring the script in `$(ProjectPath)/notebook/predict_ensemble.ipynb`. This script takes the voting of the separated csv prediction in the folder `$(ProjectPath)/results/`.
+
+------
+
+# Training details
+
+To find more setting about the training including the optimizer, learning rate etc , You can find them clearly in the config file `$(ProjectPath)/config/hypers/liper_ctc.yaml`. The whole file is self explained.
 
 ---
 

@@ -1,8 +1,7 @@
-work_dir: workdir/whole_train/whole_resnet34_dropout_0.1/
-
+work_dir: workdir/whole_train/whole_resnet18_wo_dropout/
 
 feeder: codes.feeders.LipnetFeeder.LipnetDataset
-phase: 'whole_train'
+phase: 'test'
 # limited to 'train', 'whole_train', 'test'
 
 train_feeder_args:
@@ -29,7 +28,7 @@ trade_off_args:
 # model
 model: codes.nets.lipnet_ctc.LipNet
 model_args:
-  backbone: codes.utils.resnet.resnet34
+  backbone: codes.utils.resnet.resnet18
   word_class: 313
   char_class: 431
   blank_char_class: 432
@@ -67,7 +66,7 @@ num_epoch: 200
 
 
 # trained model loading
-weights: 'trained_models/resnet34_backbone/resnet34_dropout_0.1_wo_whole_acc_0.705.pt'
+weights: 'trained_models/resnet18_backbone/resnet18_w_whole_wo_dropout_acc_0.9.pt'
 
 
 
