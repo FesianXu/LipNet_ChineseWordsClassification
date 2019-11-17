@@ -31,7 +31,8 @@ class cnnfeature(nn.Module):
         if self.cnnType == '2d':
             cnn = cnn.permute(0, 2, 1, 3, 4).contiguous().view(N * T, C, H, W)
         cnn = self.feature(cnn)
-        N, T, _ = cnn.size()
+        if self.cnnType == '3d':
+            N, T, _ = cnn.size()
         cnn = cnn.view(N, T, -1)
         return cnn
     

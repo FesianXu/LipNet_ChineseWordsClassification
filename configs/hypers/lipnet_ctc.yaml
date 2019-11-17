@@ -1,8 +1,8 @@
-work_dir: workdir/exp_shrinked_naive_cnn_avgpool/
+work_dir: workdir/whole_train/whole_resnet34_dropout_0.1/
 
 
 feeder: codes.feeders.LipnetFeeder.LipnetDataset
-phase: 'train'
+phase: 'whole_train'
 # limited to 'train', 'whole_train', 'test'
 
 train_feeder_args:
@@ -29,7 +29,7 @@ trade_off_args:
 # model
 model: codes.nets.lipnet_ctc.LipNet
 model_args:
-  backbone: codes.utils.CNN3Ds.shrinked_naive_cnn
+  backbone: codes.utils.resnet.resnet34
   word_class: 313
   char_class: 431
   blank_char_class: 432
@@ -50,24 +50,24 @@ test_batchsize: 1
 
 img_height: 60
 img_width: 120
-img_max_seq: 16
+img_max_seq: 24
 
 # training
 save_weight_strategy: 'best_eval' # limited to 'best_eval' and 'each_interval'
-best_save_theshold: 0.5
+best_save_theshold: 0.8
 is_detail_log: True
 is_print_log: True
 eval_interval: 1
 save_interval: 5
 log_interval: 200
 num_worker: 5
-devices: [0]
+devices: [1]
 start_epoch: 0
-num_epoch: 80
+num_epoch: 200
 
 
 # trained model loading
-# weights: 'workdir/exp_naive3dcnn/epoch62_model_acc_0.61.pt'
+weights: 'trained_models/resnet34_backbone/resnet34_dropout_0.1_wo_whole_acc_0.705.pt'
 
 
 

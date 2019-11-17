@@ -39,9 +39,9 @@ The network framework is shown as Fig 2. Note that the video clips have been pre
 
 ----
 
-# Developing environment
+# Development environment
 
-This project has been totally tested on the platform `Ubuntu 16.04` with `CUDA 10.2`.
+This project has been totally tested on the platform `Ubuntu 16.04` with `CUDA 10.2` using `python 3.6`.
 
 To make sure you can run the code, you basically need the following packages in `conda` envs:
 
@@ -110,7 +110,33 @@ To extract the mouth ROI area, I exploited the `face_alignment` package [3]. It'
 
 ![2d3d][2d3d]
 
+----
 
+# The description of the project's folders
+
+The project contains several folders, the structure looks like:
+
+```shell
+LipNet_ChineseWordsClassification/
+├── codes # network, utils and dataloader codes
+├── configs 
+├── dataset # dataset and label
+├── experiments # the main train and test eval processing
+├── imgs 
+├── LICENSE 
+├── notebook # jupyter notebook for data pre-processing and visualization and data understanding
+├── ReadMe.md 
+├── run_scripts # running script to make thing simple
+├── trained_models # trained model weights, saving the pre-trained models which are for the whole_train
+└── workdir # saving the weights and log files
+
+```
+
+
+
+
+
+---
 
 # Reference
 
