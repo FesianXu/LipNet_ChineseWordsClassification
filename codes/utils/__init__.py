@@ -1,1 +1,1 @@
-from . import resnet, parser, net_utils, resnet, resnext, vgg, utils
+from . import resnet, parser, net_utils, resnet, resnext, vgg, utils, CNN3Ds

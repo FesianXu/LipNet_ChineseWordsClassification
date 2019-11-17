@@ -1,4 +1,4 @@
-work_dir: workdir/exp_test/
+work_dir: workdir/exp_shrinked_naive_cnn_avgpool/
 
 
 feeder: codes.feeders.LipnetFeeder.LipnetDataset
@@ -29,7 +29,7 @@ trade_off_args:
 # model
 model: codes.nets.lipnet_ctc.LipNet
 model_args:
-  backbone: codes.utils.resnet.resnet18
+  backbone: codes.utils.CNN3Ds.shrinked_naive_cnn
   word_class: 313
   char_class: 431
   blank_char_class: 432
@@ -54,20 +54,20 @@ img_max_seq: 16
 
 # training
 save_weight_strategy: 'best_eval' # limited to 'best_eval' and 'each_interval'
-best_save_theshold: 0.6
+best_save_theshold: 0.5
 is_detail_log: True
 is_print_log: True
 eval_interval: 1
 save_interval: 5
 log_interval: 200
 num_worker: 5
-devices: [1]
+devices: [0]
 start_epoch: 0
 num_epoch: 80
 
 
 # trained model loading
-# weights: 'workdir/exp_1/lipnet_acc_0.675.pt'
+# weights: 'workdir/exp_naive3dcnn/epoch62_model_acc_0.61.pt'
 
 
 

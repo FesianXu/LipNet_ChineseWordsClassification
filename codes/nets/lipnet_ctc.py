@@ -19,11 +19,12 @@ class LipNet(torch.nn.Module):
                  attention=False,
                  cnnDropout=0.4,
                  gruDropout=0.5,
-                 fcDropout=0.5):
+                 fcDropout=0.5,
+                 cnnType='2d'):
         super(LipNet, self).__init__()
         # Cnn
         # conv3d kernel
-        self.feature3d = cnnfeature(cnnDropout=cnnDropout, backbone=backbone)
+        self.feature3d = cnnfeature(cnnDropout=cnnDropout, backbone=backbone, cnnType=cnnType)
         # Rnn
         self.gru1 = nn.GRU(self.feature3d.get_outshape(), 256, bidirectional=True, batch_first=True,dropout=gruDropout, num_layers=2) 
         

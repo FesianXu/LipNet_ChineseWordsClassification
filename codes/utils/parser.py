@@ -48,7 +48,6 @@ def get_parser():
         type=dict,
         default=None)
     
-
     parser.add_argument('--weight-decay',
         type=float)
     parser.add_argument('--base-lr',
@@ -100,7 +99,6 @@ def get_parser():
         type=int)
     parser.add_argument('--num-epoch',
         type=int)
-
     return parser
 
 def load_args():

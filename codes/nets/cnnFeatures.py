@@ -16,18 +16,22 @@ class Identity(nn.Module):
         return x
 
 class cnnfeature(nn.Module):
-    def __init__(self, cnnDropout, backbone):
+    def __init__(self, cnnDropout, backbone, cnnType):
         super().__init__()
         self.MetaFeatureModel = import_class(backbone)
-        self.feature = self.MetaFeatureModel()['model']
+        self.feature = self.MetaFeatureModel(cnnDropout=cnnDropout)['model']
         self.feature.fc = Identity()
         self.feature.avgpool = nn.AvgPool2d(kernel_size=4, stride=4)
+        self.cnnType = cnnType
         
     def forward(self, inputv):
         # inputv shape (N, C, T, H, W)
-        N, C, T, H, W = inputv.size()
-        cnn = inputv.permute(0, 2, 1, 3, 4).contiguous().view(N * T, C, H, W)
+        cnn = inputv
+        N, C, T, H, W = cnn.size()
+        if self.cnnType == '2d':
+            cnn = cnn.permute(0, 2, 1, 3, 4).contiguous().view(N * T, C, H, W)
         cnn = self.feature(cnn)
+        N, T, _ = cnn.size()
         cnn = cnn.view(N, T, -1)
         return cnn
     

@@ -57,6 +57,10 @@ class GlobalConfig(object):
     self.ctc_char_classes = np.load(self.project_root_path+'dataset/ctc_labels/ctc_char_classes.npy', allow_pickle=True).item()
     self.ctc_corpos_path = self.project_root_path+'dataset/ctc_labels/dictionary.txt'
 
+    # register the cnn feature extractor here
+    self.cnns_2d = ['resnet18', 'resnet34', 'resnet50']
+    self.cnns_3d = ['naive_3dcnn', 'st_splitted_cnn', 'shrinked_naive_cnn']
+
     '''
     Ending the GLOBAL CONFIG
     '''

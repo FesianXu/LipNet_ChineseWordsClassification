@@ -45,12 +45,13 @@ This project has been totally tested on the platform `Ubuntu 16.04` with `CUDA 1
 
 To make sure you can run the code, you basically need the following packages in `conda` envs:
 
-1. `pyytorch >= 1.0.0`
+1. `pytorch >= 1.0.0`
 2. `torchvision >= 0.2.0`
 3. `imgaug` ( optional for data augmentation)
 4. `yaml`
 5. `pandas`
-6. `argparse`
+6. `argparse` 
+7. `jupyter notebook` (optional for running the jupyter notebook pre-processing files)
 
 `conda` is recommended to use as the basic environment manager here, however, maybe `imgaug` need to use `pip` to install.
 
@@ -93,13 +94,19 @@ dataset/
 
 In the dataloader, I only pre-load the index file in the `__init__` method and fetch the certain samples in the `__getitem__` method. To make everything in order, I save the index files as `.npy` files.
 
+**Update 2019.11.17**:
+
+Though I still don't have the authorization to distribute the whole dataset, for the purpose of making this project more practiced, I release 10 samples in `train/` and `test/` folders respectively as examples and release the whole label and codebook files in the `ctc_labels/` files.
+
+
+
 -----
 
 
 
 # How to extract the mouth ROI area
 
-To extract the mouth ROI area, I exploited the `face_alignment` package [3]. It's a wonderful 2D&3D face alignment library even your target faces are not completed (e.g. only the mouth nearby area available). After you install the `face_alignment` package, you can refer the jupyter notebook code in the `$(ProjectPath)/notebook/sep2-分割嘴唇区域——中心对齐法 on test set.ipynb` or  `$(ProjectPath)/notebook/face alignment.ipynb` and customize your own extraction program.
+To extract the mouth ROI area, I exploited the `face_alignment` package [3]. It's a wonderful 2D&3D face alignment library even your target faces are not completed (e.g. only the mouth nearby area available). After you install the `face_alignment` package, to find more,  you can refer the jupyter notebook code in the `$(ProjectPath)/notebook/sep2-分割嘴唇区域——中心对齐法 on test set.ipynb` or  `$(ProjectPath)/notebook/face alignment.ipynb` and customize your own extraction program.
 
 ![2d3d][2d3d]
 

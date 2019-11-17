@@ -34,6 +34,11 @@ class Processor():
     def load_data(self):
         Feeder = import_class(self.arg.feeder)
         self.data_loader = dict()
+        self.data_loader['eval'] = torch.utils.data.DataLoader(
+            dataset=Feeder(**self.arg.eval_feeder_args),
+            batch_size=self.arg.eval_batchsize,
+            shuffle=False,
+            num_workers=self.arg.num_worker)
         if self.arg.phase in ('train', 'whole_train'):
             self.data_loader['train'] = torch.utils.data.DataLoader(
                 dataset=Feeder(**self.arg.train_feeder_args),
@@ -47,12 +52,6 @@ class Processor():
                 shuffle=True,
                 num_workers=self.arg.num_worker
             )
-
-            self.data_loader['eval'] = torch.utils.data.DataLoader(
-                dataset=Feeder(**self.arg.eval_feeder_args),
-                batch_size=self.arg.eval_batchsize,
-                shuffle=False,
-                num_workers=self.arg.num_worker)
         else:
             self.data_loader['test'] = torch.utils.data.DataLoader(
                 dataset=Feeder(**self.arg.test_feeder_args),
@@ -67,7 +66,12 @@ class Processor():
             self.output_device = self.arg.devices[0] if type(self.arg.devices) is list else self.arg.device
         
         meta_model = import_class(self.arg.model)
-        self.model = meta_model(**self.arg.model_args).to(self.output_device)
+        backbone = self.arg.model_args['backbone']
+        if backbone.split('.')[-1] in gc.cnns_2d:
+            cnnType = '2d'
+        else:
+            cnnType = '3d'
+        self.model = meta_model(cnnType=cnnType, **self.arg.model_args).to(self.output_device)
         self.char_ctcLoss = nn.CTCLoss(blank=0).to(self.output_device)
         self.word_clsLloss = nn.CrossEntropyLoss().to(self.output_device)
         self.length_reg_loss = nn.MSELoss().to(self.output_device)

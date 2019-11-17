@@ -232,7 +232,7 @@ class ResNet(nn.Module):
     forward = _forward
 
 
-def _resnet(arch, block, layers, pretrained, progress, **kwargs):
+def _resnet(arch, block, layers, pretrained, progress, cnnDropout=None, **kwargs):
     model = ResNet(block, layers, **kwargs)
     if pretrained:
         state_dict = load_state_dict_from_url(model_urls[arch],
