@@ -25,7 +25,7 @@ There are 313 words categories in the whole training set and test set and the ca
 
 I treated this problem as the classification problem and import  Connectionist Temporal Classification (CTC) loss, word length regression loss and words categories prediction loss to model this problem. 
 
-The network framework is shown as Fig 2. Note that the video clips have been pre-processed  and only the mouth 
+The network framework is shown as Fig 2. Note that the video clips have been pre-processed  and only the mouth area mainly left in the images.
 
 ![framework][framework]
 
