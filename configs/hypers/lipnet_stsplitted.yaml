@@ -1,0 +1,72 @@
+work_dir: workdir/workdir/first_step/lipnet_stsplitted/
+
+feeder: codes.feeders.LipnetFeeder.LipnetDataset
+phase: 'train'
+# limited to 'train', 'whole_train', 'test'
+
+train_feeder_args:
+  tmode: 'train'
+  data_augment: False
+
+test_feeder_args:
+  tmode: 'test'
+  data_augment: False
+
+eval_feeder_args:
+  tmode: 'eval'
+  data_augment: False
+
+whole_train_feeder_args:  
+  tmode: 'whole_train'
+  data_augment: False
+
+trade_off_args:
+  alpha: 1  # char ctc
+  gamma: 0.4  # word length
+  theta: 0.3 # word seq cls
+
+# model
+model: codes.nets.lipnet_ctc.LipNet
+model_args:
+  backbone: codes.utils.CNN3Ds.st_splitted_cnn
+  word_class: 313
+  char_class: 431
+  blank_char_class: 432
+  channel: 3
+  attention: False
+  cnnDropout: 0.5
+  gruDropout: 0.3
+  fcDropout: 0.3
+
+weight_decay: 0.0001
+base_lr: 0.0001
+step: [10, 50]
+optimizer: 'adam'
+nesterov: True
+train_batchsize: 8
+eval_batchsize: 8
+test_batchsize: 1
+
+img_height: 60
+img_width: 120
+img_max_seq: 24
+
+# training
+save_weight_strategy: 'best_eval' # limited to 'best_eval' and 'each_interval'
+best_save_theshold: 0.3
+is_detail_log: True
+is_print_log: True
+eval_interval: 1
+save_interval: 5
+log_interval: 200
+num_worker: 5
+devices: [1]
+start_epoch: 0
+num_epoch: 200
+
+
+# trained model loading
+# weights: 'trained_models/resnet18_backbone/resnet18_w_whole_wo_dropout_acc_0.9.pt'
+
+
+

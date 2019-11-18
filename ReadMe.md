@@ -73,11 +73,41 @@ you can specify the `phase` to `train` or `test` to train your model or test you
 
 
 
+To a full experience of this project, you need to follow these instructions:
+
+activate your conda envs at first
+
+```shell
+source activate your_envs
+```
+
+
+
+1. running the training process on the splitted training set
+
+   ```shell
+   cd $(ProjectPath)/run_scripts/
+   sh run_lipnet_xxxx.sh 
+   # here xxxx represents the certain experiment you want to take
+   ```
+
+2. then you are supposed to find a folder named `$(ProjectPath)/workdir/first_step/`， each sub-folder in this folder is the certain training results of a certain training process. You can find the `config.yaml` file, `log.txt` file and several weights `.pt` files in these sub-folders.  Find a weights with best evaluation accuracy and then go to next step.
+
+3. In this step, you need to train you model on the whole training set instead of the splitted one. Before doing this, make sure that you have already done the step 2 and got your best evaluated model weight. Loading this weights file by modifying the `.yaml` config file. You simply need to set the uncomment the `weight` item and modify the path to the weights path you want to load. And then modify the `phase` to `whole_train`. It's better to change the `workdir` also, since it makes you workspace clearer.  Then training and get the model with best accuracy(of course, you will meet overfitting here, but don't worry, the performance is still better than step 2).
+
+4. loading the weights at step 3, and modify the `.yaml` config file `phase` item to `test`, just ready to get your prediction here~~
+
+5. if you want to evaluate a lot of model, just modify `backbone` item, and do what I have told you above.
+
+6. now you might want to ensemble the several results by different models, just using the script in the folder `$(ProjectPath)/notebook/`.
+
+
+
 -----
 
 # More about dataset
 
-Since the dataset is provided by the sponsor of the contest, I don't have the authorization to distribute it so I decide to leave the folder `$(ProjecPath)/dataset/` empty. If you want to evaluate this project, noting that you must put your own dataset to the folder `$(ProjecPath)/dataset` . In my case, the `dataset` folder structure looks like:
+Since the dataset is provided by the sponsor of the contest, I don't have the permission to distribute it so I decide to leave the folder `$(ProjecPath)/dataset/` empty. If you want to evaluate this project, noting that you must put your own dataset to the folder `$(ProjecPath)/dataset` . In my case, the `dataset` folder structure looks like:
 
 ```shell
 dataset/
@@ -96,7 +126,7 @@ In the dataloader, I only pre-load the index file in the `__init__` method and f
 
 **Update 2019.11.17**:
 
-Though I still don't have the authorization to distribute the whole dataset, for the purpose of making this project more practiced, I release 10 samples in `train/` and `test/` folders respectively as examples and release the whole label and codebook files in the `ctc_labels/` files.
+Though I still don't have the permission to distribute the whole dataset, for the purpose of making this project more practiced, I release 10 samples in `train/` and `test/` folders respectively as examples and release the whole label and codebook files in the `ctc_labels/` files.
 
 
 
@@ -149,6 +179,14 @@ you can boost the performance by ensembling multiple difference models to make a
 To find more setting about the training including the optimizer, learning rate etc , You can find them clearly in the config file `$(ProjectPath)/config/hypers/liper_ctc.yaml`. The whole file is self explained.
 
 ---
+
+# To improve the project
+
+The project is still limited to predict some certain categories of the words. It's not very useful in the daily life however. To improve this project, we might try to make it has the ability to predict a continuous videos and the prediction is variable. It will make this project more meaningful. I will import the ctc decoder latter :)
+
+
+
+
 
 # Reference
 
